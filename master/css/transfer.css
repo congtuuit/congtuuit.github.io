@@ -1,0 +1,403 @@
+.transfer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.transfer * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.transfer ul {
+  padding: 0 !important;
+}
+
+.transfer .content-left {
+  width: 380px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.transfer .content-left.result {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.transfer .content-left.result h3 {
+  color: #09f;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px 0;
+}
+
+.transfer .content-left.result p {
+  color: #fff;
+  font-size: 16px;
+  padding: 0 0 30px;
+}
+
+.transfer .content-left.result p span {
+  color: #ff0;
+}
+
+.transfer .content-left.result button {
+  background: none repeat scroll 0 0 #00bbcc;
+  border: 2px solid #06ecee;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6) inset;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.6) inset;
+  color: #000;
+  cursor: pointer;
+  font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 50px;
+  padding: 0 20px;
+}
+
+.transfer .content-left.confirm {
+  margin-top: 40px;
+}
+
+.transfer .content-left .row-error {
+  padding: 5px;
+  color: red;
+  text-align: center;
+}
+
+.transfer .content-left .row-text {
+  color: yellow;
+}
+
+.transfer .content-left .row-textn span {
+  color: yellow;
+}
+
+.transfer .content-left .row-textn.note {
+  margin-top: 50px;
+}
+
+.transfer .content-left .row-input {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.transfer .content-left .row-input span {
+  height: 46px;
+  line-height: 46px;
+  -ms-flex: 1 1;
+      flex: 1 1;
+}
+
+.transfer .content-left .row-input input {
+  background: #322043;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  width: 250px;
+  height: 46px;
+  color: #fff;
+  font-size: 22px;
+  padding: 0 10px;
+}
+
+.transfer .content-left .row-input .check-nickname {
+  position: relative;
+}
+
+.transfer .content-left .row-input .check-nickname .check {
+  width: 29px;
+  height: 29px;
+  display: inline-block;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+}
+
+.transfer .content-left .row-input .check-nickname .check.none {
+  background: url("../images/profile/xx.html") no-repeat;
+}
+
+.transfer .content-left .row-input .check-nickname .check.checked {
+  background: url("../images/profile/check.html") no-repeat;
+}
+
+.transfer .content-left .info {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: 150px;
+  margin-top: 5px;
+}
+
+.transfer .content-left .captcha {
+  border-radius: 10px;
+  border: 2px solid #fff;
+  width: 108px;
+}
+
+.transfer .content-left .reset-captcha {
+  -ms-flex: 1 1;
+      flex: 1 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: wrap 1;
+      flex: wrap 1;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+
+.transfer .content-left .reset-captcha span {
+  background: url(../images/profile/re.html) center no-repeat;
+  width: 46px;
+  height: 46px;
+  display: block;
+  cursor: pointer;
+}
+
+.transfer .content-left .row-fee .info-fee {
+  margin-left: 150px;
+  margin-top: 5px;
+}
+
+.transfer .content-left .row-fee .info-fee .fee {
+  height: 20px;
+  color: yellow;
+}
+
+.transfer .content-left .row-fee .info-fee .fee .percent {
+  color: #058BF1;
+}
+
+.transfer .content-left .row-fee .info-fee .fee .money {
+  color: #d400a5;
+}
+
+.transfer .content-left .row-button {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.transfer .content-left .row-button button {
+  background: url(../images/common/button2.1.html) no-repeat;
+  width: 190px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 57px;
+  padding: 0 20px 0 18px;
+  white-space: nowrap;
+  font-family: 'Roboto-Regular', Arial, Helvetica, sans-serif;
+}
+
+.transfer .content-left .row-otp {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.transfer .content-left .row-otp .divselect {
+  border-radius: 10px;
+  width: 150px;
+  height: 46px;
+  color: #fff;
+  padding: 0 30px;
+  margin-bottom: 20px;
+  background: none repeat scroll 0 0 rgba(36, 19, 51, 0.6);
+  margin-right: 14px;
+}
+
+.transfer .content-left .row-otp .divselect select {
+  background: rgba(36, 19, 51, 0.6);
+  font-size: 18px;
+  line-height: 1;
+  border: 0;
+  height: 38px;
+  -webkit-appearance: none;
+  appearance: none;
+  color: #fff;
+  font-size: 22px;
+  font-family: 'Roboto-Regular', Arial, Helvetica, sans-serif;
+  margin: 5px 0 0 -20px;
+  -moz-appearance: none;
+  background: url("../images/profile/ar1.html") no-repeat scroll right center rgba(36, 19, 51, 0.6);
+  width: 130px;
+  padding: 5px;
+}
+
+.transfer .content-left .row-otp input {
+  background: rgba(36, 19, 51, 0.6);
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  height: 46px;
+  color: #fff;
+  font-size: 22px;
+  padding: 0 15px;
+  -ms-flex: 1 1;
+      flex: 1 1;
+}
+
+.transfer .content-right {
+  -ms-flex: 1 1;
+      flex: 1 1;
+  padding-left: 5px;
+}
+
+.transfer .content-right .ul-right {
+  display: none;
+}
+
+.transfer .content-right .tab {
+  text-align: center;
+}
+
+.transfer .content-right .tab li {
+  display: inline-block;
+  font-size: 18px;
+  margin: 10px 10px 0 0px;
+  float: none;
+  width: auto;
+}
+
+.transfer .content-right .tab li a {
+  min-width: 132px;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0px;
+  background: url(../images/profile/new/tap2.html) no-repeat;
+  border-radius: 0;
+}
+
+.transfer .content-right .tab li a:hover {
+  background: url(../images/profile/new/tap1.html) no-repeat;
+}
+
+.transfer .content-right .tab li a.active {
+  background: url(../images/profile/new/tap1.html) no-repeat;
+}
+
+.transfer .content-right .ul-agency {
+  display: none;
+  width: 100%;
+  border-spacing: 0px 3px;
+  font-size: 11px;
+}
+
+.transfer .content-right .ul-agency.active {
+  display: table;
+}
+
+.transfer .content-right .ul-agency li {
+  float: none;
+  width: auto;
+  text-align: auto;
+  display: table-row;
+  margin-bottom: 10px;
+}
+
+.transfer .content-right .ul-agency li span {
+  display: table-cell;
+  background-color: #322043;
+  padding: 10px 0;
+}
+
+.transfer .content-right .ul-agency li span:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-left: 5px;
+}
+
+.transfer .content-right .ul-agency li span:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding-right: 5px;
+}
+
+.transfer .content-right .ul-agency li span.voice {
+  width: 30px;
+  height: 30px;
+  background: url("../images/voicechat/supporticon.html") no-repeat;
+  background-size: 30px;
+  background-color: #322043;
+  cursor: pointer;
+}
+
+.transfer .content-right .ul-agency li span.facebook {
+  width: 30px;
+  height: 30px;
+  background: url("../images/icon/facebook.html") no-repeat;
+  background-size: 27px;
+  background-color: #322043;
+  cursor: pointer;
+  background-position: 0px 1px;
+}
+
+.transfer .content-right .ul-agency li span.verify {
+  width: 30px;
+  height: 30px;
+  background: url("../images/voicechat/verify.html") no-repeat;
+  background-size: 27px;
+  background-color: #322043;
+  cursor: pointer;
+  background-position: 0px 1px;
+}
+
+.transfer .content-right .ul-agency li span.row-button {
+  margin-top: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.transfer .content-right .ul-agency li span.row-button button {
+  background: url(../images/common/button2.1.html) no-repeat;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 32px;
+  padding: 0 20px 0 18px;
+  white-space: nowrap;
+  font-family: 'Roboto-Regular', Arial, Helvetica, sans-serif;
+  background-size: 100%;
+  position: absolute;
+  top: 1px;
+  left: 0px;
+  font-size: 10px;
+}
+
+.transfer .content-right .ul-agency li.header span {
+  background-color: #32204375;
+}
+
+.transfer .content-right .ul-agency li.active span {
+  background-color: green;
+}
+
+.transfer .content-right .ul-agency .header {
+  color: yellow;
+}
+
+.transfer .content-right .notes {
+  padding: 10px;
+  display: none;
+}
+
+.transfer .content-right .notes.active {
+  display: block;
+}
+
+.transfer .content-right .notes .note {
+  color: #ff0;
+}

@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Roboto-Black';
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Bold';
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Medium';
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Regular';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Roboto-Light';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RobotoCondensed-Bold';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RobotoCondensed-Italic';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RobotoCondensed-Light';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RobotoCondensed-Regular';
+
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'UTM American Sans';
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'UTM Swiss Condensed';
+
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'UTM Swiss CondensedBold';
+    font-weight: normal;
+    font-style: normal;
+  }
+*{ margin: 0; padding: 0 }
+canvas{ position: absolute; top: 0; left: 0 }
+.cards.ingame{
+    background: url(../../images/bg-line.html) repeat;
+}

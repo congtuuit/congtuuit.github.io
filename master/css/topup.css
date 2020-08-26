@@ -1,0 +1,152 @@
+.topup .check_list {
+    width: 330px;
+}
+
+.topup .check_list select {
+    width: 330px;
+}
+
+.topup .divdrop {
+    border-radius: 10px;
+    width: 250px;
+    height: 46px;
+    color: #fff;
+    padding: 0 30px;
+    margin-bottom: 20px;
+    background: none repeat scroll 0 0 rgba(36, 19, 51, .6);
+    margin-right: 14px;
+}
+
+.topup .divdrop select {
+    background: rgba(36, 19, 51, 0.6);
+    font-size: 18px;
+    line-height: 1;
+    border: 0;
+    height: 38px;
+    -webkit-appearance: none;
+    appearance: none;
+    color: #fff;
+    font-size: 22px;
+    font-family: 'Roboto-Regular', Arial, Helvetica, sans-serif;
+    margin: 5px 0 0 -20px;
+    -moz-appearance: none;
+    background: url("../images/profile/ar1.html") no-repeat scroll right center rgba(255, 255, 255, 0);
+    width: 230px;
+    padding: 5px;
+}
+
+.topup .divdrop select option {
+    background: rgba(36, 19, 51, 0.6);
+}
+
+.topup .content-left .row-input .check-nickname {
+    width: 263px;
+}
+
+.topup .content-left .row-input .check-nickname input {
+    background: rgba(36, 19, 51, .6);
+}
+
+.topup .content-left .row-input input {
+    background: rgba(36, 19, 51, .6);
+}
+
+.topup .content-left .row-text span {
+    color: #fff;
+}
+
+.topup .content-left .row-text span.content {
+    color: yellow;
+    width: 100px;
+    -ms-flex: auto;
+        flex: auto;
+}
+.topup .content-left.nomargin .row-input{
+    margin : 0;
+}
+.topup .content-right {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.topup .content-right .ul-agency {
+    font-size: 17px;
+}
+
+.topup .ulCards {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+}
+
+.topup .ulCards li {
+    margin-left: 10px
+}
+
+.topup .boxcard {
+    background: none repeat scroll 0 0 #fff;
+    border: 2px solid #24afe9;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 9px #b5e3f6 inset;
+            box-shadow: 0 0 9px #b5e3f6 inset;
+    display: inline-block;
+    line-height: 18px;
+    padding: 15px;
+    text-align: left;
+}
+
+.topup .boxcard p {
+    font-size: 12px;
+    color: initial;
+}
+
+.topup .boxcard li {
+    margin-left: 10px;
+}
+
+.topup .boxcard .namecard {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.topup .boxcard .namecard span {
+    color: #0083ba;
+}
+
+.topup .boxcard .codecard {
+    color: #f00;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 0;
+    text-align: center;
+}
+
+.topup .success {
+    text-align: center;
+}
+
+.topup .success h3 {
+    color: #09f;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 0;
+}
+
+.topup .success .inforeceive {
+    color: #fff;
+    font-size: 16px;
+    padding: 0 0 30px;
+}
+
+.topup .success .inforeceive span {
+    color: #ff0;
+}
+
+.topup .row-otp{
+    width: 620px;
+}
+.topup .row-otp button{
+    margin-top:-7px;
+}
