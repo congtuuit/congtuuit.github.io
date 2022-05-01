@@ -1,23 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './stylesheets/main.scss';
+import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Provider } from 'react-redux';
-import { store } from './store';
+/* GLOBAL VARIABLES */
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+window.$primaryLanguage = 'en';
+window.$secondaryLanguage = 'pl';
+window.$primaryLanguageIconId = 'primary-lang-icon';
+window.$secondaryLanguageIconId = 'secondary-lang-icon';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<App />, document.getElementById('root'));
+serviceWorker.register();

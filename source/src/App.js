@@ -1,68 +1,78 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Link } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import routes from "./pages/routes";
-import './App.css';
-import { useSelector } from 'react-redux';
+import React, { Component } from "react";
+import $ from "jquery";
+import "./App.scss";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Experience from "./components/Experience";
+import Projects from "./components/Projects";
+import Skills from "./components/Skills";
 
-const { Header, Content, Footer } = Layout;
+class App extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      foo: "bar",
+      resumeData: {},
+      sharedData: {},
+    };
+  }
 
-function App() {
-  const test = useSelector((state) => state);
-  console.log("State >> ", test)
-  return (
-    <Router>
-      <Switch>
-        <Layout>
-          <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-            <div className="logo" />
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">
-                <Link
-                  to={{
-                    pathname: "/",
-                  }}
-                />Trang chủ
-              </Menu.Item>
-              <Menu.Item key="2">
-                <a href="/khuyen-mai/coupon.html">DANH SÁCH COUPON ĐANG MỞ</a>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <a href="/khuyen-mai/voucher.html">SĂN MÃ KHUyẾN MÃI</a>
-              </Menu.Item>
-              <Menu.Item key="4">
+  applyPickedLanguage(pickedLanguage, oppositeLangIconId) {
+    document.documentElement.lang = pickedLanguage;
+    var resumePath = "res_primaryLanguage.json";
+    this.loadResumeFromPath(resumePath);
+  }
 
-                <Link
-                  to={{
-                    pathname: "/gioi-thieu",
-                  }}
-                />Giới thiệu
-              </Menu.Item>
-            </Menu>
-          </Header>
-          <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item> */}
-            </Breadcrumb>
-            <div className="site-layout-background" style={{ padding: 24, minHeight: 380, height: "80vh" }}>
+  componentDidMount() {
+    this.loadSharedData();
+    this.applyPickedLanguage(window.$primaryLanguage, window.$secondaryLanguageIconId);
+  }
 
-              {routes.map(({ component: Component, key, path, ...rest }) => {
-                return <Route
-                  key={key}
-                  path={path}
-                  component={Component}
-                  {...rest} />
-              })}
-            </div>
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>Bản quyền thuộc về Tu Van</Footer>
-        </Layout>
-      </Switch>
-    </Router >
-  );
+  loadResumeFromPath(path) {
+    $.ajax({
+      url: path,
+      dataType: "json",
+      cache: false,
+      success: function (data) {
+        this.setState({ resumeData: data });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        alert(err);
+      },
+    });
+  }
+
+  loadSharedData() {
+    $.ajax({
+      url: `portfolio_shared_data.json`,
+      dataType: "json",
+      cache: false,
+      success: function (data) {
+        this.setState({ sharedData: data });
+        document.title = `${this.state.sharedData.basic_info.name}`;
+      }.bind(this),
+      error: function (xhr, status, err) {
+        alert(err);
+      },
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Header sharedData={this.state.sharedData.basic_info} />
+        <About resumeBasicInfo={this.state.resumeData.basic_info} sharedBasicInfo={this.state.sharedData.basic_info} />
+        {/* <Projects resumeProjects={this.state.resumeData.projects} resumeBasicInfo={this.state.resumeData.basic_info} /> */}
+        <Skills sharedSkills={this.state.sharedData.skills} resumeBasicInfo={this.state.resumeData.basic_info} />
+        <Experience
+          resumeExperience={this.state.resumeData.experience}
+          resumeBasicInfo={this.state.resumeData.basic_info}
+        />
+        <Footer sharedBasicInfo={this.state.sharedData.basic_info} />
+      </div>
+    );
+  }
 }
 
 export default App;

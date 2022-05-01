@@ -1,0 +1,119 @@
+{
+    "basic_info": {
+      "name": "Tu Van",
+      "titles": [ "Full Stack Developer" ],
+      "social": [
+        {
+          "name": "facebook",
+          "url": "https://facebook.com/congtuuit",
+          "class": "fab fa-facebook"
+        },
+        {
+          "name": "github",
+          "url": "https://github.com/congtuuit",
+          "class": "fab fa-github"
+        },
+        {
+          "name": "linkedin",
+          "url": "https://www.linkedin.com/in/tu-van-1a39bb181/",
+          "class": "fab fa-linkedin"
+        },
+        {
+          "name": "instagram",
+          "url": "https://www.instagram.com/sadstone412",
+          "class": "fab fa-instagram"
+        }
+      ],
+      "image": "my-avt.jpg",
+      "email": "congtuuit@gmail.com"
+    },
+    "skills": {
+      "icons": [
+        {
+          "name": "HTML 5",
+          "class": "devicon-html5-plain",
+          "level": "95"
+        },
+        {
+          "name": "CSS 3",
+          "class": "devicon-css3-plain",
+          "level": "95"
+        },
+        {
+          "name": "Sass",
+          "class": "devicon-sass-original",
+          "level": "75"
+        },
+        {
+          "name": "Bootstrap",
+          "class": "devicon-bootstrap-plain",
+          "level": "85"
+        },
+        {
+          "name": "Angular",
+          "class": "devicon-angularjs-plain",
+          "level": "80"
+        },
+        {
+          "name": "Reactjs",
+          "class": "devicon-react-plain",
+          "level": "80"
+        },
+        {
+          "name": "JavaScript",
+          "class": "devicon-javascript-plain",
+          "level": "70"
+        },
+        {
+          "name": "JQuery",
+          "class": "devicon-jquery-plain",
+          "level": "70"
+        },
+        {
+          "name": "C++",
+          "class": "devicon-cplusplus-plain",
+          "level": "50"
+        },
+        {
+          "name": "Java",
+          "class": "devicon-java-plain",
+          "level": "40"
+        },
+        {
+          "name": "Python",
+          "class": "devicon-python-plain",
+          "level": "40"
+        },
+        {
+          "name": "C#",
+          "class": "devicon-csharp-plain",
+          "level": "85"
+        },
+        {
+          "name": "Netcore",
+          "class": "devicon-dotnetcore-plain",
+          "level": "70"
+        },
+        {
+          "name": "SQL Server",
+          "class": "devicon-microsoftsqlserver-plain",
+          "level": "80"
+        },
+        {
+          "name": "Jenkins",
+          "class": "devicon-jenkins-plain",
+          "level": "60"
+        },
+        {
+          "name": "Azure",
+          "class": "devicon-azure-plain",
+          "level": "60"
+        },
+        {
+          "name": "git",
+          "class": "devicon-git-plain",
+          "level": "85"
+        }
+      ]
+    }
+  }

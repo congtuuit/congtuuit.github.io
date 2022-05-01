@@ -1,0 +1,127 @@
+{
+    "basic_info": {
+      "description_header": "Hi :)",
+      "description": "👋 I'm Tu Van. I come from Viet Nam. I graduated with a major in computer science from the University of Information Technology - Vietnam National University, Ho Chi Minh City in 2018.  My goal is to learn to improve my knowledge. My hobby is interested in research and development, listening to suggestions from everyone to improve.",
+      "section_name": {
+        "about": "About me",
+        "projects": "Projects",
+        "skills": "Skills",
+        "experience": "Experience"
+      }
+    },
+    "projects": [
+      {
+        "title": "Animal Shelter",
+        "startDate": "2020",
+        "description": "The most expanded application I had opportunity to work with. I've learned many technologies and my code was reviewed by awesome curator. Application handles all adoption processess and allows to store all evidence on adopting animals from animal shelter.",
+        "images": [
+          "images/portfolio/animal-shelter/p1.jpg",
+          "images/portfolio/animal-shelter/p2.jpg"
+        ],
+        "url": "",
+        "technologies": [
+          {
+            "class": "devicon-angularjs-plain",
+            "name": "Angular"
+          },
+          {
+            "class": "devicon-typescript-plain",
+            "name": "TypeScript"
+          },
+          {
+            "class": "devicon-csharp-plain",
+            "name": "C#"
+          }
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "company": "STEPMEDIA SOFTWARE",
+        "title": "Full Stack .Net Developer",
+        "years": "May 2021 - present",
+        "mainTech": [
+          ".Net Core"
+        ],
+        "technologies": [
+          ".Net Core",
+          "Restful Api",
+          "Reactjs",
+          "React Native",
+          "Bootstrap",
+          "SQL Server",
+          "Azure DevOps"
+        ],
+        "description":"Implement feature about basic logistic system, warehouse management. Build source code architecture and design database schema. Design and implement API for web application."
+      },
+      {
+        "company": "TMA SOLUTIONS",
+        "title": "DEVOPS",
+        "years": "May 2021 - Jan 2021",
+        "mainTech": [
+          "Jenkins"
+        ],
+        "technologies": [
+          "Jenkins",
+          "SVN",
+          "Git",
+          "Azure DevOps",
+          "VBS",
+          "Advanced Installer,",
+          "SQL Server"
+        ],
+        "description":"Setup Jenkins builds, pipelines, agent build, build Advanced Installer project and sometimes handling and resolving priority issues from clients"
+      },
+      {
+        "company": "TMA SOLUTIONS",
+        "title": "Full Stack .Net Developer",
+        "years": "Sep 2019 - May 2020",
+        "mainTech": [
+          "ASP.NET MVC"
+        ],
+        "technologies": [
+          "HTML/CSS",
+          "jQuery",
+          "JavaScript",
+          "ASP.NET MVC",
+          "ASP.NET Web Forms",
+          "Restful Api",
+          "SQL Server",
+          "Bootstrap",
+          "Git/Gitlab"
+        ],
+        "description":"Projects: Payment systems from Australia about transaction management,  customer documents, e-wallet, transaction reports. Experience about Scrum, Agile teamwork"
+      },
+      {
+        "company": "STARTUP VNU-ITP GROUP",
+        "title": "Full Stack .Net Developer",
+        "years": "Jun 2018 - May 2019",
+        "mainTech": [
+          "ASP.NET MVC"
+        ],
+        "technologies": [
+          "ASP.NET MVC",
+          "Team Foundation",
+          "SQL Server",
+          "Bootstrap"
+        ],
+        "description":"Building 3 project about company website and shoe web shopping."
+      },
+      {
+        "company": "GMO-Z.COM RUNSYSTEM",
+        "title": "Fresher",
+        "years": "Jul 2017 - Sep 2017",
+        "mainTech": [
+          "JavaScript"
+        ],
+        "technologies": [
+          "HTML5",
+          "Css",
+          "JavaScript",
+          "JQuery",
+          "Java Servlet"
+        ],
+        "description":"Won 3rd place in mini contest"
+      }
+    ]
+  }
