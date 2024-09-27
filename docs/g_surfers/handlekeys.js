@@ -50,8 +50,6 @@ function resizeCanvas() {
   draw(); // Call a draw function if needed
 }
 
-resizeCanvas();
-
 const swipeArea = document.getElementById("glcanvas");
 
 let touchStartX = 0;
