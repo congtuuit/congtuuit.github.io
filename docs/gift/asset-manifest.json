@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.16cb43b7.css",
+    "main.js": "/static/js/main.7ad8c58f.js",
+    "static/js/453.d5f7a5a0.chunk.js": "/static/js/453.d5f7a5a0.chunk.js",
+    "static/media/factory_mini.png": "/static/media/factory_mini.c7613804720dea61b336.png",
+    "index.html": "/index.html",
+    "main.16cb43b7.css.map": "/static/css/main.16cb43b7.css.map",
+    "main.7ad8c58f.js.map": "/static/js/main.7ad8c58f.js.map",
+    "453.d5f7a5a0.chunk.js.map": "/static/js/453.d5f7a5a0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16cb43b7.css",
+    "static/js/main.7ad8c58f.js"
+  ]
+}
