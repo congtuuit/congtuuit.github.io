@@ -75,10 +75,10 @@ class GiftRandomGame {
 
     // run lower and stop
     if (this.isStopping) {
-      intervalTime += 30;
+      intervalTime += 35;
 
       if (
-        intervalTime >= 800 &&
+        intervalTime >= 520 &&
         !this.previousResults.has(this.currentPosition)
       ) {
         this.isRunning = false;
@@ -93,7 +93,7 @@ class GiftRandomGame {
       if (this.previousResults.has(this.currentPosition)) {
         intervalTime = intervalTime - 30;
       }
-    } else if (intervalTime > 40) {
+    } else if (intervalTime > 20) {
       intervalTime -= 10;
     }
 
