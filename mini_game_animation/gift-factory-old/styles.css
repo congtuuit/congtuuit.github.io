@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
+    height: 100vh;
+    /* Full height of the viewport */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.factory-container {
+    margin: auto;
+    position: relative;
+    /* width: 100vw; */
+    /* height: 100vh; */
+
+    width: 700px;
+    height: 735px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    /* Behind other elements */
+}
+
+/* Start button */
+.start-button {
+    padding: 15px 30px;
+    font-size: 24px;
+    color: white;
+    background-color: #ff5722;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+
+    position: absolute;
+    bottom: 20px;
+    padding: 32px 0px;
+    border-radius: 100px;
+    width: 355px;
+    left: 177px;
+}
+
+.start-button:active {
+    transform: scale(0.95);
+}
+
+/* Gift box */
+.gift-box {
+    font-size: 180px;
+    margin-top: 30px;
+    cursor: pointer;
+    animation: bounceIn 1s ease-out forwards;
+}
+
+/* Gift message */
+.gift-message {
+    font-size: 30px;
+    color: #333;
+    margin-top: 20px;
+}
+
+
+/* Animation for gift box */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+
+    60% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* Khói bốc lên */
+@keyframes smoke {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-100px);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+/* Smoke stack styles */
+.smoke-stack {
+    position: absolute;
+    background: #0000;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 60px;
+    z-index: 1;
+}
+
+.stack-1 {
+    left: 109px;
+    top: 245px;
+}
+
+.stack-2 {
+    left: 264px;
+    top: 105px;
+}
+
+.stack-2 .smoke {
+    width: 20px;
+    height: 20px;
+}
+
+.stack-3 {
+    left: 354px;
+    top: 88px;
+}
+
+.stack-3 .smoke {
+    width: 30px;
+    height: 30px;
+}
+
+/* Smoke effect */
+.smoke {
+    position: absolute;
+    bottom: 100%;
+    /* Start from the top of the smoke stack */
+    left: 50%;
+    width: 15px;
+    /* Width of the smoke */
+    height: 15px;
+    /* Height of the smoke */
+    background-color: rgba(255, 255, 255, 0.651);
+    /* White smoke color */
+    border-radius: 50%;
+    opacity: 0;
+    /* Start invisible */
+    animation: smokeAnimation 3s linear infinite;
+    /* Animation for smoke */
+}
+
+/* Smoke animation */
+@keyframes smokeAnimation {
+    0% {
+        transform: translate(-50%, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -100px) scale(2);
+        /* Move upwards */
+        opacity: 0;
+        /* Fade out */
+    }
+}
+
+
+
+.moving-div {
+    background-image: url("./scroll.png");
+    position: absolute;
+    background-repeat: no-repeat;
+    width: 130px;
+    height: 50px;
+    display: block;
+
+    left: 386px;
+    top: 489px;
+    display: block;
+    z-index: 1;
+    background-size: 87px;
+}
+
+/* Animation Keyframes */
+@keyframes moveAnimation {
+    from {
+        transform: translate(0, 0); /* Starting position */
+    }
+    to {
+        transform: translate(160px, 120px); /* Move to (360, 300) */
+    }
+}
