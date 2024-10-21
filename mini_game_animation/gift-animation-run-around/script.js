@@ -11,8 +11,6 @@ class GiftBox {
 
   setup(element, boxId) {
     const imgPath = `assets/images/gift-box/${boxId}.png`;
-    console.log("imgPath ", imgPath)
-
     $('<style>' + element + ' .box::before { background: url("' + imgPath + '") no-repeat center center  }</style>').appendTo('head');
   }
 
@@ -164,8 +162,8 @@ function displayProcessbar() {
   // Simulate a loading process with a timeout
   let progress = 0;
   let loadingInterval = setInterval(() => {
-    //progress += 0.5;
-    progress += 50;
+    progress += 0.5;
+    //progress += 50;
     progressBar.style.width = progress + "%";
 
     // When progress reaches 100%, show the game container
