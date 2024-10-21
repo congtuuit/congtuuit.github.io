@@ -9,9 +9,20 @@ class GiftBox {
     this.setup(this.element, boxId);
   }
 
+  _isOnVolum() {
+    const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
+    return isOnVolum === "TRUE";
+  }
+
   setup(element, boxId) {
     const imgPath = `assets/images/gift-box/${boxId}.png`;
-    $('<style>' + element + ' .box::before { background: url("' + imgPath + '") no-repeat center center  }</style>').appendTo('head');
+    $(
+      "<style>" +
+        element +
+        ' .box::before { background: url("' +
+        imgPath +
+        '") no-repeat center center  }</style>'
+    ).appendTo("head");
   }
 
   setActive(isActive) {
@@ -25,6 +36,8 @@ class GiftBox {
   }
 
   playSound() {
+    if (!this._isOnVolum()) return;
+
     // Attempt to play sound with error handling
     this.sound.play().catch((error) => {
       console.error("Error playing sound:", error);
@@ -41,7 +54,7 @@ class GiftBox {
 }
 
 class GiftRandomGame {
-  constructor(totalBox = 14, intervalTime = 199) {
+  constructor(totalBox = 23, intervalTime = 199) {
     this.isRunning = false;
     this.isStopping = false;
     this.totalBox = totalBox;
@@ -52,12 +65,36 @@ class GiftRandomGame {
     this.resultCallback = null;
     this.previousResults = new Set();
 
+    this.volum = $(".volum");
+
+    const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
+    if (isOnVolum === "TRUE") {
+      // turn on
+      $(this.volum).addClass("fa-volume-up");
+      $(this.volum).removeClass("fa-volume-off");
+    } else {
+      // turn off
+      $(this.volum).removeClass("fa-volume-up");
+      $(this.volum).addClass("fa-volume-off");
+    }
+
     this.bgSound = document.getElementById("bgSound");
+    this.bgSound.loop = true;
 
     this.confettiSound = new Audio("assets/sounds/gift-open.mp3");
 
     // play background sound
     this._playStartSound();
+
+    $("#volum").click(() => {
+      console.log("this ", this);
+      this.toggleVolum();
+    });
+  }
+
+  _isOnVolum() {
+    const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
+    return isOnVolum === "TRUE";
   }
 
   _createElements() {
@@ -76,6 +113,8 @@ class GiftRandomGame {
   }
 
   _playOpenGiftSound() {
+    if (!this._isOnVolum()) return;
+
     // Attempt to play sound with error handling
     this.confettiSound.play().catch((error) => {
       console.error("Error playing sound:", error);
@@ -83,6 +122,8 @@ class GiftRandomGame {
   }
 
   _playStartSound() {
+    if (!this._isOnVolum()) return;
+
     this.bgSound.pause();
     this.bgSound.currentTime = 0;
     this.bgSound.play();
@@ -148,6 +189,27 @@ class GiftRandomGame {
     }
   }
 
+  toggleVolum() {
+    const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
+    if (isOnVolum === "TRUE") {
+      // turn off
+      $(this.volum).removeClass("fa-volume-up");
+      $(this.volum).addClass("fa-volume-off");
+      localStorage.setItem("isOnVolum", "FALSE");
+
+      this._stopStartSound();
+    } else {
+      // turn on
+      $(this.volum).addClass("fa-volume-up");
+      $(this.volum).removeClass("fa-volume-off");
+      localStorage.setItem("isOnVolum", "TRUE");
+
+      setTimeout(() => {
+        this._playStartSound();
+      }, 1000);
+    }
+  }
+
   resetHistory() {
     this.previousResults.clear();
   }
@@ -157,7 +219,7 @@ function displayProcessbar() {
   const progressBar = document.getElementById("progress");
   const loadingContainer = document.getElementById("loading-container");
   const startStopButton = document.getElementById("startStopButton");
-  const giftBoxes = document.getElementById("giftBoxes");
+  const giftBoxes = $(".giftBoxes");
 
   // Simulate a loading process with a timeout
   let progress = 0;
@@ -171,7 +233,7 @@ function displayProcessbar() {
       clearInterval(loadingInterval);
       loadingContainer.style.display = "none"; // Hide the loading screen
       startStopButton.style.opacity = "1"; // Show the game container
-      giftBoxes.style.opacity = "1"; // Show the game container
+      giftBoxes.css("opacity", 1);
     }
   }, 10); // Adjust the interval speed to control loading duration
 }
@@ -186,16 +248,22 @@ $(document).ready(() => {
 
   startStopButton.click(() => {
     if (game.isRunning) {
-      // set the gift
-      const selectedGift = getRandomGift();
-      $("#giftResult")
-        .attr("src", selectedGift.picture)
-        .attr("alt", selectedGift.name);
+      // set the gift from random
+      // const selectedGift = getRandomGift();
+      // $("#giftResult")
+      //   .attr("src", selectedGift.picture)
+      //   .attr("alt", selectedGift.name);
 
       startStopButton.attr("disabled", true);
       game.stop(({ index }) => {
         console.log("Game stopped at position:", index);
         //startStopButton.html("Start");
+
+        // set gift by result
+        const resultGift = getGift(index);
+        $("#giftResult")
+          .attr("src", resultGift.picture)
+          .attr("alt", resultGift.name);
 
         // Set start button
         startStopButton.attr("disabled", false);

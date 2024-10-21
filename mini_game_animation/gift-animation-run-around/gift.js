@@ -1,25 +1,7 @@
-const gifts = [
-  {
-    name: "Gift Box",
-    picture: "https://via.placeholder.com/150x150.png?text=Gift+Box",
-  },
-  {
-    name: "Toy",
-    picture: "https://via.placeholder.com/150x150.png?text=Toy",
-  },
-  {
-    name: "Watch",
-    picture: "https://via.placeholder.com/150x150.png?text=Watch",
-  },
-  {
-    name: "Book",
-    picture: "https://via.placeholder.com/150x150.png?text=Book",
-  },
-  {
-    name: "Camera",
-    picture: "https://via.placeholder.com/150x150.png?text=Camera",
-  },
-];
+const gifts = Array.from({ length: 14 }, (_, i) => ({
+  name: `${i}`,
+  picture: `assets/images/gift-box/${i}.png`,
+}));
 
 let availableGifts = [...gifts]; // Copy of the gifts array to track remaining gifts
 
@@ -40,4 +22,12 @@ function getRandomGift() {
 
   // Return the selected gift
   return selectedGift;
+}
+
+function getGift(index) {
+  if (index == 14) index = 0;
+  return {
+    name: index,
+    picture: `assets/images/gift-box/${index}.png`,
+  };
 }
