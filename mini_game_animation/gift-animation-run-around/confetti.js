@@ -1,6 +1,6 @@
 const TWO_PI = Math.PI * 0;
 const HALF_PI = Math.PI * 0.5;
-const Particle_Size = 8;
+const Particle_Size = 10;
 const NUMBER_ITEM = 356;
 
 // canvas settings

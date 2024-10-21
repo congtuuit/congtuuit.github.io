@@ -1,5 +1,6 @@
 :root {
-    --giftBoxSize: 100px;
+    --giftBoxSize: 173px;
+    --giftBoxActiveSize: 230px;
     --gift-box: rgb(124, 185, 232);
     --button-bg-active: #E32636;
     --button-bg-disabled: #bdc3c7;
@@ -11,46 +12,85 @@
     --button-font-size: 18px;
     --button-shadow-color: rgba(0, 0, 0, 0.2);
     --button-shadow-hover-color: rgba(0, 0, 0, 0.3);
+
+    --box-gap: 0px;
 }
 
-body {}
+body {
+    margin: 0;
+}
 
 .centered {
     display: flex;
+    margin: 0 auto;
+}
+
+.game-bg {
+    background-image: url('assets/images/background.png');
+    background-size: 100% 100%;
+    max-width: 1920px;
+    /* min-height: 1080px; */
+    max-height: 1080px;
+    position: relative;
 }
 
 .game-container {
+    padding-top: 8px;
     margin: auto;
     display: inline-grid;
 }
 
+#giftBoxes {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
 #giftBoxes .line {
     display: flex;
-    gap: 5px;
-    margin-bottom: 5px;
+    gap: var(--box-gap);
+    margin-bottom: var(--box-gap);
 }
 
 #giftBoxes .gift-box {
-    border-radius: 10px;
+    border-radius: 35px;
     width: var(--giftBoxSize);
     height: var(--giftBoxSize);
-    background-color: #7CB9E8;
+    background-image: url('assets/images/gift-frame.png');
+    background-size: 100% 100%;
+    transition: opacity 0.2s ease, background-color 0.01s;
+    position: relative;
 
-    transition: opacity 0.2s ease;
-    transition: background-color 0.01s;
 }
 
-@keyframes changeColor {
-    0% {
-        background-color: #ff5733; /* Start color */
-    }
-    50% {
-        background-color: #33ff57; /* Middle color */
-    }
-    100% {
-        background-color: #3357ff; /* End color */
-    }
+#giftBoxes .box-wrapper.active {
+    box-shadow: 0px 0px 100px 0px rgb(255 208 0 / 100%);
+
+    border: solid 8px rgb(255 239 141 / 80%);
 }
+
+#giftBoxes .box-wrapper.active .gift-box{
+    box-shadow: 0px 0px 50px 0px rgb(255 208 0 / 100%);
+}
+
+.box-wrapper {
+    padding: 6px;
+    border-radius: 50px;
+
+    border: solid 8px rgb(255 255 255 / 0%);
+}
+
+/* #giftBoxes .gift-box.active::before {
+    content: '';
+    position: absolute;
+    background: url('assets/images/active-frame.png') no-repeat center center;
+    background-size: contain;
+    width: var(--giftBoxActiveSize);
+    height: var(--giftBoxActiveSize);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+} */
 
 #giftBoxes .gift-box--hide {
     opacity: 0;
@@ -58,25 +98,34 @@ body {}
 }
 
 #startStopButton {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .game-button {
+    opacity: 0;
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: none;
-    border-radius: var(--button-border-radius);
+    border-radius: 20px;
     padding: var(--button-padding);
     font-size: var(--button-font-size);
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
     box-shadow: 0 5px 10px var(--button-shadow-color);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.5s ease;
+
+    background-image: url('assets/images/start.png');
+    background-size: contain;
+    width: 120px;
+    height: 120px;
+
+    margin: auto;
 }
 
 .game-button:hover {
     background-color: var(--button-bg-hover);
+    opacity: 0.8;
 }
 
 .game-button:active {
@@ -90,6 +139,7 @@ body {}
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
+    opacity: 0.8;
 }
 
 /* DEBUG */
@@ -108,7 +158,8 @@ body {}
     content: "";
     width: 340px;
     height: 340px;
-    background-color: #89cff0;
+    /* background: url('assets/images/gift-frame.png') no-repeat center center; */
+
     position: absolute;
     z-index: -1;
     top: 30%;
@@ -497,4 +548,56 @@ body {}
     left: 0;
     right: 0;
     z-index: 1;
+}
+
+
+/* Loading container styling, positioned at the bottom */
+#loading-container {
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    /* Adjust this to position the progress bar at the desired distance from the bottom */
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the progress bar */
+    z-index: 100;
+    /* Ensure the loading bar stays on top */
+}
+
+/* Progress bar styling */
+#progress-bar {
+    width: 80%;
+    /* Control how wide the progress bar should be */
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#progress {
+    height: 100%;
+    width: 0;
+    background-color: rgb(255, 208, 0);
+    /* background: linear-gradient(90deg, rgb(255, 208, 0), rgb(255, 236, 128)); */
+    background: linear-gradient(270deg, rgb(255, 208, 0), rgb(236, 229, 186));
+    border-radius: 10px;
+    transition: width 0.05s ease;
+}
+
+
+#giftBoxes .box::before {
+    content: '';
+    position: absolute;
+    background-size: inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    width: 120px;
+    height: 120px;
+}
+
+.gift-box-container .box::before {
 }
