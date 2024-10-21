@@ -8,40 +8,87 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <div class="centered">
+    <div class="centered game-bg">
       <div class="game-container">
         <div id="giftBoxes">
           <div class="line">
-            <div class="gift-box box-5"></div>
-            <div class="gift-box box-6"></div>
-            <div class="gift-box box-7"></div>
-            <div class="gift-box box-8"></div>
-            <div class="gift-box box-9"></div>
+            <div class="box-wrapper box-5">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-6">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-7">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-8">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-9">
+              <div class="gift-box box"></div>
+            </div>
           </div>
           <div class="line">
-            <div class="gift-box box-4"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box box-10"></div>
+            <div class="box-wrapper box-4">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper box-10">
+              <div class="gift-box box"></div>
+            </div>
           </div>
           <div class="line">
-            <div class="gift-box box-3"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box gift-box--hide"></div>
-            <div class="gift-box box-11"></div>
+            <div class="box-wrapper box-3">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper">
+              <div class="gift-box gift-box--hide"></div>
+            </div>
+            <div class="box-wrapper box-11">
+              <div class="gift-box box"></div>
+            </div>
           </div>
           <div class="line">
-            <div class="gift-box box-2"></div>
-            <div class="gift-box box-1"></div>
-            <div class="gift-box box-0"></div>
-            <div class="gift-box box-13"></div>
-            <div class="gift-box box-12"></div>
+            <div class="box-wrapper box-2">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-1">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-0">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-13">
+              <div class="gift-box box"></div>
+            </div>
+            <div class="box-wrapper box-12">
+              <div class="gift-box box"></div>
+            </div>
           </div>
         </div>
 
-        <button id="startStopButton" class="game-button">Start</button>
+        <button id="startStopButton" class="game-button"></button>
+      </div>
+
+      <!-- Progress Bar at the bottom of the game-bg div -->
+      <div id="loading-container">
+        <div id="progress-bar">
+          <div id="progress"></div>
+        </div>
       </div>
     </div>
 
@@ -53,7 +100,13 @@
         <div class="gift-box-container">
           <div class="box">
             <div class="box-body">
-              <img id="giftResult" class="img" src="https://via.placeholder.com/150" width="150" height="auto" />
+              <img
+                id="giftResult"
+                class="img"
+                src="https://via.placeholder.com/150"
+                width="150"
+                height="auto"
+              />
               <div class="box-lid">
                 <div class="box-bowtie"></div>
               </div>
@@ -62,6 +115,8 @@
         </div>
       </div>
     </div>
+
+    <audio id="bgSound" src="assets/sounds/gamebackground.wav"></audio>
 
     <script src="script.js"></script>
     <script src="confetti.js"></script>
