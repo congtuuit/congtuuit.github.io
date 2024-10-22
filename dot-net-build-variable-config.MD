@@ -3,12 +3,15 @@
 ## 1. Create appsettings file for env, example:
 
 ```
-appsettings.json (default)
+appsettings.json
 appsettings.Development.json
 appsettings.Production.json
 ```
 
 ## 2. Add new code into Program.cs
+- `"appsettings.json"`: This is the main configuration file for the application, typically containing common settings for the app.
+- `optional: false`: This parameter specifies that this configuration file is required. If the file does not exist, the application will throw an exception and fail to start.
+- `reloadOnChange: true`: When set to true, the application will automatically reload the configuration file if any changes are detected. This allows the application to update its configuration without needing a restart.
 
 ```
 builder.Configuration
@@ -18,6 +21,8 @@ builder.Configuration
 ```
 
 ## 3. Update web API project
+- For Debug configurations, it includes both `appsettings.json` and `appsettings.Development.json` (both published) but removes any `appsettings.*.json` files from the publish output to avoid including unnecessary files.
+- For non-Debug configurations (like Production), it includes `appsettings.json` (not published) and `appsettings.Production.json` (published).
 ```
 <Choose>
   <When Condition="'$(Configuration)' != 'Debug'">
