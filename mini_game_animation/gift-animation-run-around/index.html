@@ -3,18 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mini Game</title>
+    <meta content="Game random, Gift random" name="keywords" />
+    <meta content="Mini game random gift" name="description" />
+    <meta content="https://congtuuit.github.io/gift-v2/index.html" property="og:url" />
+    <meta content="Random Gift" property="og:site_name" />
+    <meta content="Random Gift - Mini game for random gift" property="og:image:alt" />
+    <meta property="og:image" content="/assets/banner.webp" />
+    <meta property="og:type" content="website" />
+
+    <title>Random Gift</title>
+
+    <link rel="shortcut icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <div class="centered game-bg">
       <div class="game-container">
-
         <div class="giftBoxes w1366x768">
           <div class="line">
             <div class="box-wrapper box-1">
@@ -41,7 +52,6 @@
             <div class="box-wrapper box-8">
               <div class="gift-box box"></div>
             </div>
-            
           </div>
           <div class="line">
             <div class="box-wrapper box-20">
@@ -243,11 +253,7 @@
         </div>
 
         <div id="volum">
-          <i
-            class="fa volum"
-            style="font-size: 48px"
-            aria-hidden="true"
-          ></i>
+          <i class="fa volum" style="font-size: 48px" aria-hidden="true"></i>
         </div>
         <button id="startStopButton" class="game-button"></button>
       </div>
@@ -271,8 +277,7 @@
               <img
                 id="giftResult"
                 class="img"
-                src="https://via.placeholder.com/150"
-                width="150"
+                width="500"
                 height="auto"
               />
               <div class="box-lid">
