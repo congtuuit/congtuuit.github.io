@@ -22,8 +22,8 @@ builder.Configuration
 <Choose>
   <When Condition="'$(Configuration)' != 'Debug'">
     <ItemGroup>
-      <None Include="_appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Never" />
-      <None Include="_appsettings.Production.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+      <None Include="appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Never" />
+      <None Include="appsettings.Production.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
     </ItemGroup>
   </When>
   <Otherwise>
