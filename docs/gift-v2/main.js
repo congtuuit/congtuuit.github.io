@@ -67,16 +67,10 @@ class GiftRandomGame {
 
     this.volum = $(".volum");
 
-    const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
-    if (isOnVolum === "TRUE") {
-      // turn on
-      $(this.volum).addClass("fa-volume-up");
-      $(this.volum).removeClass("fa-volume-off");
-    } else {
-      // turn off
-      $(this.volum).removeClass("fa-volume-up");
-      $(this.volum).addClass("fa-volume-off");
-    }
+    // force open sound
+    $(this.volum).addClass("fa-volume-up");
+    $(this.volum).removeClass("fa-volume-off");
+    localStorage.setItem("isOnVolum", "TRUE");
 
     this.bgSound = document.getElementById("bgSound");
     this.bgSound.loop = true;
@@ -84,7 +78,9 @@ class GiftRandomGame {
     this.confettiSound = new Audio("assets/sounds/gift-open.mp3");
 
     // play background sound
-    this._playStartSound();
+    setTimeout(() => {
+      this._playStartSound();
+    }, 1000);
 
     $("#volum").click(() => {
       console.log("this ", this);
@@ -94,6 +90,7 @@ class GiftRandomGame {
 
   _isOnVolum() {
     const isOnVolum = localStorage.getItem("isOnVolum") ?? "FALSE";
+    console.log("isOnVolum ", isOnVolum)
     return isOnVolum === "TRUE";
   }
 
@@ -144,7 +141,7 @@ class GiftRandomGame {
       intervalTime += 35;
 
       if (
-        intervalTime >= 520 &&
+        intervalTime >= 280 &&
         !this.previousResults.has(this.currentPosition)
       ) {
         this.isRunning = false;
@@ -249,21 +246,21 @@ $(document).ready(() => {
   startStopButton.click(() => {
     if (game.isRunning) {
       // set the gift from random
-      // const selectedGift = getRandomGift();
-      // $("#giftResult")
-      //   .attr("src", selectedGift.picture)
-      //   .attr("alt", selectedGift.name);
+      const selectedGift = getRandomGift();
+      $("#giftResult")
+        .attr("src", selectedGift.picture)
+        .attr("alt", selectedGift.name);
 
       startStopButton.attr("disabled", true);
       game.stop(({ index }) => {
         console.log("Game stopped at position:", index);
         //startStopButton.html("Start");
 
-        // set gift by result
-        const resultGift = getGift(index);
-        $("#giftResult")
-          .attr("src", resultGift.picture)
-          .attr("alt", resultGift.name);
+        // // set gift by result
+        // const resultGift = getGift(index);
+        // $("#giftResult")
+        //   .attr("src", resultGift.picture)
+        //   .attr("alt", resultGift.name);
 
         // Set start button
         startStopButton.attr("disabled", false);

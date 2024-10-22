@@ -1,7 +1,32 @@
-const gifts = Array.from({ length: 14 }, (_, i) => ({
-  name: `${i}`,
-  picture: `assets/images/gift-box/${i}.png`,
-}));
+const gifts = [
+  {
+    name: "bebe.png",
+  },
+  {
+    name: "binh-nuoc.png",
+  },
+  {
+    name: "but-chi-chuot.png",
+  },
+  {
+    name: "but-chi-gom.png",
+  },
+  {
+    name: "but-mau.png",
+  },
+  {
+    name: "but-may.png",
+  },
+  {
+    name: "hop-but.png",
+  },
+  {
+    name: "so-tay.png",
+  },
+  {
+    name: "thuoc.png",
+  },
+];
 
 let availableGifts = [...gifts]; // Copy of the gifts array to track remaining gifts
 
@@ -21,7 +46,10 @@ function getRandomGift() {
   availableGifts.splice(randomIndex, 1);
 
   // Return the selected gift
-  return selectedGift;
+  return {
+    name: selectedGift.name,
+    picture: `assets/images/gifts/${selectedGift.name}`,
+  };
 }
 
 function getGift(index) {
