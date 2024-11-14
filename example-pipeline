@@ -1,0 +1,477 @@
+# Node.js with React
+# ADMIN and POS FE
+parameters:
+  - name: SqlMigration
+    displayName: '1) Run build Stage SQL Migration'
+    type: boolean
+    default: true
+  - name: AdminFE
+    displayName: '2) Run build Stage Admin Front-End'
+    type: boolean
+    default: true
+  - name: PosFE
+    displayName: '3) Run build Stage POS Front-End'
+    type: boolean
+    default: true
+  - name: AdminApi
+    displayName: '4) Run build Stage Admin API & Theme'
+    type: boolean
+    default: true
+  - name: PosApi
+    displayName: '5) Run build Stage POS Back-End'
+    type: boolean
+    default: true
+  - name: PosAppApi
+    displayName: '6) Run build Stage POS App Back-End'
+    type: boolean
+    default: true
+  - name: Notification
+    displayName: '7) Run build Stage Notification'
+    type: boolean
+    default: true
+variables:
+  repo_location_admin_fe: "<>"
+  repo_location_pos_fe: "<>"
+  projectPathStoreWeb: "<>"
+  project_admin: "**/<>.WebApi.csproj"
+  project_pos: "**/<>.POS.WebApi.csproj"
+  project_notification: "**/<>.csproj"
+  projectPath_admin: "<projectPath_admin>"
+  projectPath_pos: "<projectPath_pos>"
+  projectPath_pos_app: "<projectPath_pos_app>"
+  project_pos_app: "**/<>.WebApi.csproj"
+  THEME_1_PATH: <>
+  THEME_2_PATH: <>
+  THEME_1_ID: 921016FE-D34E-4192-BEB8-15D775D0EE5B
+  THEME_2_ID: 46565F44-C3E2-449D-8D58-3850A95FFBA7
+  solution: "**/<>.sln"
+  buildPlatform: "Any CPU"
+  buildConfiguration: "DevRelease"
+  dbContext: "<dbContext>"
+
+stages:
+  - stage: Set_Integration_Build
+    dependsOn: []
+    displayName: "Set Integration Build"
+    jobs:
+      - job: Set_Integration_Build
+        pool:
+          name: "Agent-Ubuntu-1"
+          vmImage: "ubuntu-2004"
+        displayName: "Set Integration Build"
+        steps:
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "Update build number for $(Build.BuildId)"
+                echo "##vso[build.updatebuildnumber]$(VersionNumber).$(VersionRevision).$(BuildNumber)"
+            displayName: "Set build number"
+          - task: WorkItemUpdater@3
+            inputs:
+              workitemsSource: 'Build'
+              workItemType: 'Bug'
+              updateFields: 'Microsoft.VSTS.Build.IntegrationBuild,$(VersionNumber).$(VersionRevision).$(BuildNumber)'
+            displayName: "Set Integration Build in Bug"
+          - task: WorkItemUpdater@3
+            inputs:
+              workitemsSource: 'Build'
+              workItemType: 'User Story'
+              updateFields: 'Microsoft.VSTS.Build.IntegrationBuild,$(VersionNumber).$(VersionRevision).$(BuildNumber)'
+            displayName: "Set Integration Build in User Story"
+          - task: WorkItemUpdater@3
+            inputs:
+              workitemsSource: 'Build'
+              workItemType: 'Dev Task'
+              updateFields: 'Microsoft.VSTS.Build.IntegrationBuild,$(VersionNumber).$(VersionRevision).$(BuildNumber)'
+            displayName: "Set Integration Build in Dev Task"
+
+### Publish theme
+  - ${{ if eq(parameters.AdminApi, true) }}:
+    - stage: ADMIN_API_GoFoodandBeverage
+      dependsOn: []
+      displayName: "ADMIN Back-End and Theme"
+      jobs:
+        - job: Build_theme_1
+          pool:
+            name: "Agent-Ubuntu-1"
+            vmImage: "ubuntu-2004"
+          displayName: "Publish Theme 1"
+          steps:
+            - task: Bash@3
+              inputs:
+                targetType: 'inline'
+                script: |
+                  cp -r $(THEME_1_PATH) $(projectPathStoreWeb)/src/theme
+                  cd $(projectPathStoreWeb)
+                  yarn
+                  yarn build
+              displayName: "Build theme"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(projectPathStoreWeb)/build"
+                ArtifactName: "$(THEME_1_ID)"
+                publishLocation: "Container"
+              displayName: "Publish Artifacts theme"
+        - job: Build_theme_2
+          pool:
+            name: "Agent-Ubuntu-2"
+            vmImage: "ubuntu-2004"
+          displayName: "Publish Theme 2"
+          steps:
+            - task: Bash@3
+              inputs:
+                targetType: 'inline'
+                script: |
+                  cp -r $(THEME_2_PATH) $(projectPathStoreWeb)/src/theme
+                  cd $(projectPathStoreWeb)
+                  yarn
+                  yarn build
+              displayName: "Build theme"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(projectPathStoreWeb)/build"
+                ArtifactName: "$(THEME_2_ID)"
+                publishLocation: "Container"
+              displayName: "Publish Artifacts theme"
+### Admin API
+        - job: Admin_API
+          dependsOn: [Build_theme_1, Build_theme_2]
+          pool:
+            name: "FNB-AGENT"
+            vmImage: "GOFNB-AGENT-5"
+          displayName: "Admin Back-End Build"
+          steps:
+            - task: UseDotNet@2
+              inputs:
+                packageType: "sdk"
+                version: "7.0.306"
+              displayName: "Use .Net 7.0.306"
+            - task: NuGetToolInstaller@1
+              displayName: "NugetInstaller API"
+            - task: CopyFiles@2
+              inputs:
+                SourceFolder: 'sources/back-end/GoFnB/nuget-packages'
+                Contents: '**'
+                TargetFolder: 'C:/packages'
+                CleanTargetFolder: true
+                OverWrite: true
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  dotnet nuget add source sources/back-end/GoFnB/nuget-packages -n GoFnBPackages
+                  dotnet nuget list source
+              displayName: "Nuget add Source"
+            - task: NuGetCommand@2
+              inputs:
+                restoreSolution: "$(solution)"
+            - task: DeleteFiles@1
+              inputs:
+                SourceFolder: 'sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure'
+                Contents: 'Migrations'
+                RemoveSourceFolder: true
+              displayName: "Delete Migrations"
+            - task: DeleteFiles@1
+              inputs:
+                SourceFolder: 'sources/back-end/GoFoodBeverage/GoFoodBeverage.WebApi/wwwroot/themes'
+                Contents: './*'
+              displayName: "Delete theme"
+            - task: VSBuild@1
+              inputs:
+                solution: "$(project_admin)"
+                msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp_admin_api_dev.zip" /p:DeployIisAppPath="dev-gofnb-api"'
+                platform: "$(buildPlatform)"
+                configuration: "$(buildConfiguration)"
+              displayName: "VSBuild for Admin API DEV"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+                ArtifactName: "develop_admin"
+              displayName: "Publish Tokenized Admin API"
+### ADMIN FE
+  - ${{ if eq(parameters.AdminFE, true) }}:
+    - stage: ADMIN_FE_GoFoodandBeverage
+      dependsOn: []
+      displayName: "ADMIN Front-End"
+      pool:
+        vmImage: "Ubuntu-latest"
+      jobs:
+        - job: ADMIN_FE
+          displayName: "ADMIN Front-End Build"
+          steps:
+            - task: NodeTool@0
+              inputs:
+                versionSpec: "16.x"
+              displayName: "Install Node.js"
+            - script: |
+                cd $(repo_location_admin_fe)
+                export NODE_OPTIONS="--max-old-space-size=8192"
+                npm i vite -g
+                npm install --force
+                npm run build
+              displayName: "Build for Admin FE"
+            - task: Bash@3
+              inputs:
+                targetType: 'inline'
+                script: |
+                  cd $(repo_location_admin_fe)
+                  cp .env.* build
+                  mv build admin_frontend_dev
+                  cp staticwebapp.config.json admin_frontend_dev/staticwebapp.config.json
+              displayName: "Copy for Admin FE"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(repo_location_admin_fe)/admin_frontend_dev"
+                ArtifactName: "admin_frontend_dev"
+              displayName: "Publish Admin FE"
+### POS FE
+  - ${{ if eq(parameters.PosFE, true) }}:
+    - stage: POS_FE_GoFoodandBeverage
+      dependsOn: []
+      displayName: "POS FE"
+      pool:
+        vmImage: "Ubuntu-latest"
+      jobs:
+        - job: POS_FE
+          displayName: "POS Front-End Build"
+          steps:
+            - task: NodeTool@0
+              inputs:
+                versionSpec: "16.x"
+              displayName: "Install Node.js"
+            - script: |
+                cd $(repo_location_pos_fe)
+                npm i vite -g
+                npm install --force
+                npm run build
+                cp .env.* build
+                mv dist pos_frontend_dev
+                cp staticwebapp.config.json pos_frontend_dev/staticwebapp.config.json
+              displayName: "Build POS FE"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(repo_location_pos_fe)/pos_frontend_dev"
+                ArtifactName: "pos_frontend_dev"
+              displayName: "Publish DEV FE"
+### SQL Migration
+  - ${{ if eq(parameters.SqlMigration, true) }}:
+    - stage: Sql_Migration_GoFoodandBeverage
+      dependsOn: []
+      displayName: "Sql Migration"
+      pool:
+        name: "FNB-AGENT"
+        vmImage: "GOFNB-AGENT-5"
+      jobs:
+        - job: Sql_Migration
+          displayName: "Sql Migration Build"
+          steps:
+            - task: UseDotNet@2
+              inputs:
+                packageType: "sdk"
+                version: "7.0.306"
+              displayName: "Use .Net 7.0.306"
+            - task: CopyFiles@2
+              inputs:
+                SourceFolder: 'sources/back-end/GoFnB/nuget-packages'
+                Contents: '**'
+                TargetFolder: 'C:/packages'
+                CleanTargetFolder: true
+                OverWrite: true
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  dotnet nuget add source ./ -n GoFnBPackages
+                  dotnet nuget list source
+              displayName: "Nuget add Source"
+            - task: DotNetCoreCLI@2
+              inputs:
+                command: custom
+                custom: "ef "
+                arguments: migrations script --output $(Build.ArtifactStagingDirectory)/api.sql --idempotent --project sources/back-end/GoFoodBeverage/GoFoodBeverage.WebApi --context $(dbContext)
+              displayName: "Create SQL Scripts API for all ENV"
+            - task: DotNetCoreCLI@2
+              inputs:
+                command: custom
+                custom: "ef "
+                arguments: migrations script --output $(Build.ArtifactStagingDirectory)/notification.sql --idempotent --project sources/back-end/GoFnB/src/Services/Notification/GFB.Services.Notification --context GFBNotificationDbContext
+              displayName: "Create SQL Scripts for Notification"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+                ArtifactName: "SQL"
+              displayName: "Publish Artifacts Migrations"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure/Migrations/StoredProcedures"
+                ArtifactName: "SQL-SP"
+              displayName: "Publish Artifacts Stored Procedures"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure/Migrations/Functions"
+                ArtifactName: "SQL-Function"
+              displayName: "Publish Artifacts Function"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "sources/backupdatabase.sql"
+                ArtifactName: "SQL-Script"
+                publishLocation: "Container"
+              displayName: "Publish Artifacts BackupDB"
+
+### POS API
+  - ${{ if eq(parameters.PosApi, true) }}:
+    - stage: POS_API_GoFoodandBeverage
+      dependsOn: []
+      displayName: "POS Backend"
+      pool:
+        name: "FNB-AGENT"
+        vmImage: "GOFNB-AGENT-5"
+      jobs:
+        - job: POS_API
+          displayName: "POS Back-End Build"
+          steps:
+            - task: UseDotNet@2
+              inputs:
+                packageType: "sdk"
+                version: "7.0.306"
+              displayName: "Use .Net 7.0.306"
+            - task: NuGetToolInstaller@1
+              displayName: "NugetInstaller API"
+            - task: CopyFiles@2
+              inputs:
+                SourceFolder: 'sources/back-end/GoFnB/nuget-packages'
+                Contents: '**'
+                TargetFolder: 'C:/packages'
+                CleanTargetFolder: true
+                OverWrite: true
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  dotnet nuget add source sources/back-end/GoFnB/nuget-packages -n GoFnBPackages
+                  dotnet nuget list source
+              displayName: "Nuget add Source"
+            - task: NuGetCommand@2
+              inputs:
+                restoreSolution: "$(solution)"
+            - task: DeleteFiles@1
+              inputs:
+                SourceFolder: 'sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure'
+                Contents: 'Migrations'
+                RemoveSourceFolder: true
+              displayName: "Delete Migrations"
+            - task: VSBuild@1
+              inputs:
+                solution: "$(project_pos)"
+                msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp_pos_api_dev.zip" /p:DeployIisAppPath="dev-gofnb-api"'
+                platform: "$(buildPlatform)"
+                configuration: "$(buildConfiguration)"
+              displayName: "VSBuild for POS API DEV"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+                ArtifactName: "develop_pos"
+              displayName: "Publish Tokenized POS API"
+
+### POS APP API
+  - ${{ if eq(parameters.PosAppApi, true) }}:
+    - stage: POS_APP_API_GoFoodandBeverage
+      dependsOn: []
+      displayName: "POS APP Backend"
+      jobs:
+        - job: POS_APP_API
+          pool:
+            name: "FNB-AGENT"
+            vmImage: "GOFNB-AGENT-5"
+          displayName: "POS APP Back-End Build"
+          steps:
+            - task: UseDotNet@2
+              inputs:
+                packageType: "sdk"
+                version: "7.0.306"
+              displayName: "Use .Net 7.0.306"
+            - task: NuGetToolInstaller@1
+              displayName: "NugetInstaller POS APP"
+            - task: CopyFiles@2
+              inputs:
+                SourceFolder: 'sources/back-end/GoFnB/nuget-packages'
+                Contents: '**'
+                TargetFolder: 'C:/packages'
+                CleanTargetFolder: true
+                OverWrite: true
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  dotnet nuget add source sources/back-end/GoFnB/nuget-packages -n GoFnBPackages
+                  dotnet nuget list source
+              displayName: "Nuget add Source"
+            - task: NuGetCommand@2
+              inputs:
+                restoreSolution: "$(solution)"
+            - task: DeleteFiles@1
+              inputs:
+                SourceFolder: 'sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure'
+                Contents: 'Migrations'
+                RemoveSourceFolder: true
+              displayName: "Delete Migrations"
+            - task: VSBuild@1
+              inputs:
+                solution: "$(project_pos_app)"
+                msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp_pos_app_dev.zip" /p:DeployIisAppPath="dev-gofnb-api"'
+                platform: "$(buildPlatform)"
+                configuration: "$(buildConfiguration)"
+              displayName: "VSBuild for POS APP DEV"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+                ArtifactName: "develop_pos_app"
+              displayName: "Publish Tokenized POS APP"
+### Notification
+  - ${{ if eq(parameters.Notification, true) }}:
+    - stage: Notification_GoFoodandBeverage
+      dependsOn: []
+      displayName: "Notification Service"
+      jobs:
+        - job: Notification_Service
+          pool:
+            vmImage: "windows-latest"
+          displayName: "Notification Service Build"
+          steps:
+            - task: CopyFiles@2
+              inputs:
+                SourceFolder: 'sources/back-end/GoFnB/nuget-packages'
+                Contents: '**'
+                TargetFolder: 'C:\Program Files\dotnet\library-packs'
+                OverWrite: true
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  dotnet nuget add source sources/back-end/GoFnB/nuget-packages -n GoFnBPackages
+                  dotnet nuget list source
+              displayName: "Nuget add Source"
+            - task: NuGetToolInstaller@1
+              displayName: "NugetInstaller"
+            - task: NuGetCommand@2
+              inputs:
+                restoreSolution: "**/GoFnB.sln"
+            - task: DeleteFiles@1
+              inputs:
+                SourceFolder: 'sources/back-end/GoFoodBeverage/GoFoodBeverage.Infrastructure'
+                Contents: 'Migrations'
+                RemoveSourceFolder: true
+              displayName: "Delete Migrations"
+            - task: VSBuild@1
+              inputs:
+                solution: "$(project_notification)"
+                msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp_Notification.zip" /p:DeployIisAppPath="dev-gofnb-api"'
+                platform: "$(buildPlatform)"
+                configuration: "$(buildConfiguration)"
+              displayName: "VSBuild for Notification"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+                ArtifactName: "Notification-Service"
+              displayName: "Publish Notification"

@@ -1,0 +1,7 @@
+esbenp.prettier-vscode
+msjsdiag.vscode-react-native
+pkief.material-icon-theme
+rioj7.vscode-remove-comments
+visualstudioexptteam.intellicode-api-usage-examples
+visualstudioexptteam.vscodeintellicode
+waderyan.gitblame

@@ -1,0 +1,4 @@
+- VS Code [https://code.visualstudio.com/]
+- Visual Studio [https://visualstudio.microsoft.com/]
+- SQL Server in Docker
+- Postman
