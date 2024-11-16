@@ -1,7 +1,7 @@
-esbenp.prettier-vscode
-msjsdiag.vscode-react-native
-pkief.material-icon-theme
-rioj7.vscode-remove-comments
-visualstudioexptteam.intellicode-api-usage-examples
-visualstudioexptteam.vscodeintellicode
-waderyan.gitblame
+code --install-extension esbenp.prettier-vscode
+code --install-extension msjsdiag.vscode-react-native
+code --install-extension pkief.material-icon-theme
+code --install-extension rioj7.vscode-remove-comments
+code --install-extension visualstudioexptteam.intellicode-api-usage-examples
+code --install-extension visualstudioexptteam.vscodeintellicode
+code --install-extension waderyan.gitblame
