@@ -18,7 +18,7 @@
         function ensureSchema(url) {
             if (!url) return null;
             if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("app://")) {
-                return "https://" + url; // Thêm HTTPS mặc định nếu thiếu schema
+                return "https://" + url;
             }
             return url;
         }
@@ -40,18 +40,23 @@
             }
 
             if (isZaloWebView()) {
-                console.log("targetLink", targetLink);
-                // Chuyển hướng sang Safari với Universal Link
-                window.location.href = "mqqbrowser://url=" + encodeURIComponent(targetLink);
+                console.log("🔵 Đang chạy trong Zalo WebView, thử mở Safari...");
 
-                // Nếu sau 2 giây không mở được, hiển thị link để bấm thủ công
-                setTimeout(() => {
-                    showLink(targetLink);
-                }, 2000);
+                // Mở Universal Link trong tab mới (chỉ hoạt động trên iOS Safari)
+                let newTab = window.open(targetLink, "_blank");
+
+                // Nếu trình duyệt chặn, hiển thị link để người dùng click
+                if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
+                    setTimeout(() => {
+                        showLink(targetLink);
+                    }, 2000);
+                }
             } else {
-                console.log("not zalo targetLink", targetLink);
-
-                window.location.href = targetLink;
+                console.log("🟢 Không phải Zalo WebView, mở trực tiếp");
+                
+                setTimeout(() => {
+                    window.open(targetLink, "_blank");
+                }, 100);
             }
         }
     </script>
