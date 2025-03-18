@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyển hướng...</title>
+    <title>Mở ứng dụng</title>
     <script>
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
-        }
-
-        function isZaloWebView() {
-            const ua = navigator.userAgent || navigator.vendor;
-            return ua.includes("Zalo") || ua.includes("zalo");
         }
 
         function ensureSchema(url) {
@@ -23,78 +18,79 @@
             return url;
         }
 
-        function showLink(url) {
-            const linkElement = document.getElementById("manual-link");
-            linkElement.href = url;
-            linkElement.style.display = "block";
-        }
-
         function openApp() {
             let targetLink = ensureSchema(getQueryParam("target"));
             let fallbackLink = ensureSchema(getQueryParam("fallback")) || "https://prestigeautomobile.vn";
 
-            if (!targetLink) {
-                console.error("❌ Missing target link");
-                showLink(fallbackLink);
-                return;
-            }
-
-            if (isZaloWebView()) {
-                console.log("🔵 Đang chạy trong Zalo WebView, thử mở Safari...");
-
-                // Mở Universal Link trong tab mới (chỉ hoạt động trên iOS Safari)
-                let newTab = window.open(targetLink, "_blank");
-
-                // Nếu trình duyệt chặn, hiển thị link để người dùng click
-                if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
-                    setTimeout(() => {
-                        showLink(targetLink);
-                    }, 2000);
-                }
-            } else {
-                console.log("🟢 Không phải Zalo WebView, mở trực tiếp");
-                
-                setTimeout(() => {
-                    window.open(targetLink, "_blank");
-                }, 100);
-            }
+            document.getElementById("open-app-btn").href = targetLink || fallbackLink;
         }
     </script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            text-align: center;
             font-family: Arial, sans-serif;
-            margin-top: 50px;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-        h2 {
-            font-size: 24px;
-            color: #333;
-            animation: waveText 1.5s infinite ease-in-out;
+        .container {
+            max-width: 215px;
+            padding-bottom: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
         }
 
-        @keyframes waveText {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
+        img {
+            height: 150px;
+            margin-bottom: 0px;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         a {
-            display: none;
+            display: inline-block;
             font-size: 18px;
-            color: #007bff;
-            text-decoration: underline;
-            margin-top: 20px;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body onload="openApp()">
-    <h2>Đang mở ứng dụng...</h2>
-    <a id="manual-link" href="#" target="_blank">Nhấn vào đây nếu không tự động mở</a>
+    <div class="container">
+        <img src="./default_logo.png" alt="App Logo">
+        <a id="open-app-btn" href="#" target="_blank">Mở ứng dụng</a>
+    </div>
 </body>
 </html>
