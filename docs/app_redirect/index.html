@@ -15,6 +15,14 @@
             return ua.includes("Zalo") || ua.includes("zalo");
         }
 
+        function ensureSchema(url) {
+            if (!url) return null;
+            if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("app://")) {
+                return "https://" + url; // Thêm HTTPS mặc định nếu thiếu schema
+            }
+            return url;
+        }
+
         function showLink(url) {
             const linkElement = document.getElementById("manual-link");
             linkElement.href = url;
@@ -22,8 +30,8 @@
         }
 
         function openApp() {
-            const targetLink = getQueryParam("target");
-            const fallbackLink = getQueryParam("fallback") || "https://prestigeautomobile.vn";
+            let targetLink = ensureSchema(getQueryParam("target"));
+            let fallbackLink = ensureSchema(getQueryParam("fallback")) || "https://prestigeautomobile.vn";
 
             if (!targetLink) {
                 console.error("❌ Missing target link");
@@ -32,14 +40,17 @@
             }
 
             if (isZaloWebView()) {
-                // Chuyển hướng sang Safari
+                console.log("targetLink", targetLink);
+                // Chuyển hướng sang Safari với Universal Link
                 window.location.href = "mqqbrowser://url=" + encodeURIComponent(targetLink);
 
-                // Nếu không mở được sau 2 giây, hiển thị link để bấm thủ công
+                // Nếu sau 2 giây không mở được, hiển thị link để bấm thủ công
                 setTimeout(() => {
                     showLink(targetLink);
                 }, 2000);
             } else {
+                console.log("not zalo targetLink", targetLink);
+
                 window.location.href = targetLink;
             }
         }
