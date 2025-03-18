@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển hướng...</title>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function isZaloWebView() {
+            const ua = navigator.userAgent || navigator.vendor;
+            return ua.includes("Zalo") || ua.includes("zalo");
+        }
+
+        function showLink(url) {
+            const linkElement = document.getElementById("manual-link");
+            linkElement.href = url;
+            linkElement.style.display = "block";
+        }
+
+        function openApp() {
+            const targetLink = getQueryParam("target");
+            const fallbackLink = getQueryParam("fallback") || "https://prestigeautomobile.vn";
+
+            if (!targetLink) {
+                console.error("❌ Missing target link");
+                showLink(fallbackLink);
+                return;
+            }
+
+            if (isZaloWebView()) {
+                // Chuyển hướng sang Safari
+                window.location.href = "mqqbrowser://url=" + encodeURIComponent(targetLink);
+
+                // Nếu không mở được sau 2 giây, hiển thị link để bấm thủ công
+                setTimeout(() => {
+                    showLink(targetLink);
+                }, 2000);
+            } else {
+                window.location.href = targetLink;
+            }
+        }
+    </script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            animation: waveText 1.5s infinite ease-in-out;
+        }
+
+        @keyframes waveText {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        a {
+            display: none;
+            font-size: 18px;
+            color: #007bff;
+            text-decoration: underline;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body onload="openApp()">
+    <h2>Đang mở ứng dụng...</h2>
+    <a id="manual-link" href="#" target="_blank">Nhấn vào đây nếu không tự động mở</a>
+</body>
+</html>
